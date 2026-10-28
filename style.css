@@ -1,0 +1,132 @@
+/* ===== Passo 3: CSS base e centralização ===== */
+
+/* Cores e fonte do projeto: mude aqui e muda em tudo */
+:root {
+  --bg: #eceff0;
+  --fg: #141d1c;
+  --muted: #66767a;
+  --line: #141d1c;
+  --line-soft: #b4bfc1;
+  --accent: #1c7a6c;
+  --fonte: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--fonte);
+  display: grid;
+  place-items: center;   /* centraliza na horizontal e na vertical */
+  padding: 24px 16px;
+}
+
+/* ===== Passo 4: moldura ===== */
+
+.moldura {
+  position: relative;                 /* ponto de referência para o ::before */
+  width: min(100%, 44rem);            /* nunca passa de 44rem nem da tela */
+  padding: clamp(1.75rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 3rem);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 2rem;                          /* espaço entre os blocos */
+  text-align: center;
+}
+
+.moldura::before {
+  content: "";                        /* sem content, o ::before não aparece */
+  position: absolute;
+  inset: 7px;                         /* 7px para dentro, nos 4 lados */
+  border: 1px solid var(--line-soft);
+  pointer-events: none;               /* não atrapalha cliques */
+}
+
+/* ===== Passo 5: estilizar a hora ===== */
+
+.fuso {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hora {
+  font-weight: 300;
+  font-size: clamp(2.25rem, 13vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;  /* todos os dígitos com a mesma largura */
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  white-space: nowrap;                 /* nunca quebra a hora em duas linhas */
+}
+
+.sep {
+  color: var(--accent);
+  animation: piscar 1s steps(1, end) infinite;
+}
+
+@keyframes piscar {
+  50% { opacity: 0.15; }
+}
+
+.periodo {
+  font-size: 0.16em;                   /* 16% do tamanho da hora */
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-left: 0.6em;
+  align-self: flex-end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sep { animation: none; }            /* respeita quem desativou animações */
+}
+
+/* ===== Passo 6: régua, data e botão ===== */
+
+.regua {
+  height: 2px;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.regua > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left center;       /* a barra cresce a partir da esquerda */
+  transform: scaleX(0);                /* 0 = vazia, 1 = cheia */
+}
+
+.data {
+  font-size: clamp(0.8rem, 2.6vw, 0.95rem);
+  letter-spacing: 0.04em;
+}
+
+.data::first-letter {
+  text-transform: uppercase;           /* "quarta-feira" vira "Quarta-feira" */
+}
+
+.formato {
+  justify-self: center;
+  font: inherit;                       /* botão herda a fonte da página */
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line-soft);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+
+.formato:hover { color: var(--fg); border-color: var(--line); }
+
+.formato:focus-visible {
+  outline: 2px solid var(--accent);    /* destaque para quem usa o teclado */
+  outline-offset: 3px;
+}

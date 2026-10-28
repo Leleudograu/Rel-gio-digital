@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relógio Digital</title>
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="moldura">
+    <div class="fuso" id="fuso">Fuso local</div>
+
+    <time class="hora" id="hora">
+      <span id="hh">00</span><span class="sep">:</span><span id="mm">00</span><span
+class="sep">:</span><span id="ss">00</span><span class="periodo" id="periodo" hidden>AM</span>
+    </time>
+
+    <div class="regua"><span id="regua"></span></div>
+
+    <div class="data" id="data"></div>
+
+    <button class="formato" id="formato" type="button">Formato 24 h</button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
